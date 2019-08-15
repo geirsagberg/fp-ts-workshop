@@ -1,0 +1,17 @@
+{
+  "name": "fp-ts-workshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "fp-ts": "^2.0.5"
+  },
+  "devDependencies": {
+    "typescript": "^3.5.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
