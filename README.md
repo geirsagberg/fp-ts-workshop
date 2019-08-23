@@ -16,3 +16,7 @@ const strings = values.map(x => 'string' * 1)
 What is the type of strings?
 
 That's right, `string[]`!
+
+Cool stuff:
+
+https://github.com/microsoft/TypeScript/issues/1213
