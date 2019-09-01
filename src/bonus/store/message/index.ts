@@ -1,7 +1,7 @@
 import { createReducer, ActionsUnion } from '~/reduxUtils'
 
 export interface Message {
-  timestamp: Date
+  timestamp: string
   text: string
   userId: string
 }
@@ -20,6 +20,10 @@ const reducer = createReducer<MessageState, Action>(initialState, (state, action
   switch (action.type) {
     case 'setMessages': {
       state.messages = action.payload
+      return
+    }
+    case 'addMessage': {
+      state.messages.push(action.payload)
       return
     }
   }

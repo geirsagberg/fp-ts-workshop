@@ -1,6 +1,7 @@
-import produce, { Immutable } from 'immer'
-import { ActionCreatorsMapObject, bindActionCreators, Dispatch, Reducer, Action as ReduxAction } from 'redux'
+import produce, { Immutable, Produced } from 'immer'
+import { ActionCreatorsMapObject, bindActionCreators, Dispatch } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
+import { AppState } from './store'
 
 export interface Action<T extends string> {
   type: T
@@ -10,6 +11,8 @@ export interface ActionWithPayload<T extends string, P> extends Action<T> {
   type: T
   payload: P
 }
+
+export type Thunk = (dispatch: (action: Action<any> | Thunk) => any, getState?: () => AppState) => any
 
 export function createAction<T extends string>(type: T): Action<T>
 export function createAction<T extends string, P>(type: T, payload: P): ActionWithPayload<T, P>
@@ -23,7 +26,7 @@ export function createReducer<State, Action>(
   initialState: Immutable<State>,
   recipe: (state: State, action: Action) => void | State
 ) {
-  return produce(recipe, initialState)
+  return produce(recipe, initialState) as <B>(state: B, action: Action) => Readonly<State>
 }
 
 export function bindThunkActionCreators<M extends ActionCreatorsMapObject>(map: M, dispatch: Dispatch) {

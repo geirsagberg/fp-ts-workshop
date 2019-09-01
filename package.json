@@ -32,7 +32,8 @@
     "typescript": "^3.6.2"
   },
   "scripts": {
-    "test": "mocha src/**/*.spec.ts --watch --require ts-node/register --require esm"
+    "test": "mocha src/**/*.spec.ts --watch --require ts-node/register --require esm",
+    "bonus": "parcel src/bonus/index.html"
   },
   "author": "Geir Sagberg",
   "license": "MIT",
