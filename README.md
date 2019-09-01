@@ -23,6 +23,25 @@ What is the type of strings?
 
 That's right, `string[]`!
 
-Cool stuff:
+To explore the typings of these, Ctrl+Click `.map`, and you will see the content of `node_modules/typescript/lib/lib.es5.d.ts`. This file and others in the same folder are the built-in typings of TypeScript, and can be used as a reference for best practice when writing your own types.
 
-https://github.com/microsoft/TypeScript/issues/1213
+## Part 2a - Write your own functional library
+
+Do this part OR part 2b.
+
+## Part 2b - Write typings for Lodash
+
+### Cheats:
+
+https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/fp.d.ts
+https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/lodash/common
+
+## Part 3 - `fp-ts`
+
+Check out https://gcanti.github.io/fp-ts/
+
+Follow this tutorial series: https://dev.to/gcanti/getting-started-with-fp-ts-setoid-39f3
+
+## Cool stuff:
+
+[GitHub issue tracking full monad support in TypeScript](https://github.com/microsoft/TypeScript/issues/1213)

@@ -42,22 +42,22 @@ interface Creature {
 }
 
 {
-  const llanowarElves: Tappable & Creature = {
-    power: 1,
-    toughness: 1,
-    tap: () => Mana.Green
-  }
+  // const llanowarElves: Tappable & Creature = {
+  //   power: 1,
+  //   toughness: 1,
+  //   tap: () => Mana.Green
+  // }
 }
 
 // Types
 
 type TappableCreature = Tappable & Creature
 
-const avacynsPilgrim: TappableCreature = {
-  power: 1,
-  toughness: 1,
-  tap: () => Mana.White
-}
+// const avacynsPilgrim: TappableCreature = {
+//   power: 1,
+//   toughness: 1,
+//   tap: () => Mana.White
+// }
 
 // So what’s the difference between type alias and interface again 🤖?
 // 1. you cannot use implements on an class with type alias if you use union operator within your type definition
@@ -85,12 +85,23 @@ interface ManaTappable<TMana extends Mana> {
 }
 
 class LlanowarElves implements ManaTappable<Mana.Green> {
-  tap = () => Mana.Green as const
+  isTapped = false
+  tap = () => {
+    this.isTapped = true
+    return Mana.Green as const
+  }
+  canTap = () => !this.isTapped
 }
 
 const elf = new LlanowarElves()
 
 const mana = elf.tap()
+
+// InstanceType
+
+type LlanowarElvesType = InstanceType<typeof LlanowarElves>
+
+// const lolElf = new LlanowarElvesType()
 
 // Union Types
 
@@ -153,18 +164,22 @@ type AttributesInEnchantmentButNotInCreature = Exclude<EnchantmentAttribute, Cre
 
 const enchantmentAttr: AttributesInEnchantmentButNotInCreature = 'ability'
 
+// Extract<T,U>
+
+type AttributesInEnchantmentAndInCreature = Extract<EnchantmentAttribute, CreatureAttribute>
+
 // Exclusive OR
 
 type CreatureXorEnchantment =
   | Creature & { [P in AttributesInEnchantmentButNotInCreature]?: never }
   | Enchantment & { [P in Exclude<keyof Creature, keyof Enchantment>]?: never }
 
-const orc: CreatureXorEnchantment = {
-  power: 2,
-  toughness: 2,
-  manaCost: [Mana.Red, Mana.Red],
-  ability: () => ''
-}
+// const orc: CreatureXorEnchantment = {
+//   power: 2,
+//   toughness: 2,
+//   manaCost: [Mana.Red, Mana.Red],
+//   ability: () => ''
+// }
 
 // Pick<T, U>
 
@@ -178,7 +193,7 @@ const p: CreaturePower = {
 
 type CreatureWithoutManaCost = Omit<Creature, 'manaCost'>
 
-const freeCreature: CreatureWithoutManaCost = {
+const centaurToken: CreatureWithoutManaCost = {
   power: 3,
   toughness: 3
 }
@@ -207,3 +222,27 @@ function castCounterspell() {
 }
 
 type Counterspell = ReturnType<typeof castCounterspell>
+
+// Conditional types
+
+type TypeOfCard<T> = T extends { type: 'land' }
+  ? 'land'
+  : T extends { type: 'instant' }
+  ? 'instant'
+  : T extends { type: 'creature' }
+  ? 'creature'
+  : T extends { type: 'sorcery' }
+  ? 'sorcery'
+  : T extends { type: 'enchantment' }
+  ? 'enchantment'
+  : never
+
+type counterspellType = TypeOfCard<Counterspell>
+
+// infer
+
+type InferredTypeOfCard<T> = T extends { type: infer R } ? (R extends CardType ? R : never) : never
+
+type inferredCounterspellType = InferredTypeOfCard<Counterspell>
+
+// Advanced

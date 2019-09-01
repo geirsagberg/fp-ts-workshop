@@ -244,3 +244,4 @@ dist/
 .awcache/
 
 .vscode/settings.json
+.tsbuildinfo
