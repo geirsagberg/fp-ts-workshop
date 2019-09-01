@@ -1,6 +1,12 @@
 # Functional programming in TypeScript
 
-In this workshop, we will create our own strongly typed functional library using TypeScript type magic.
+In this workshop, we will learn the power of types in TypeScript, and then use that power responsibly to create our own strongly typed functional library.
+
+## Part 0 - Prerequisites
+
+- [Visual Studio Code](https://code.visualstudio.com/)
+- When prompted, install recommended extensions
+- Run `npm i`
 
 ## Part 1 - Native functions
 
