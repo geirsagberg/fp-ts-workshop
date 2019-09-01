@@ -45,3 +45,5 @@ Follow this tutorial series: https://dev.to/gcanti/getting-started-with-fp-ts-se
 ## Cool stuff:
 
 [GitHub issue tracking full monad support in TypeScript](https://github.com/microsoft/TypeScript/issues/1213)
+[Article about FP in JS](https://www.freecodecamp.org/news/functional-programming-in-js-with-practical-examples-part-1-87c2b0dbc276/)
+[Maybe in TypeScript](https://engineering.dollarshaveclub.com/typescript-maybe-type-and-module-627506ecc5c8)

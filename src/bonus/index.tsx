@@ -1,6 +1,15 @@
 import React from 'react'
 import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import store from './store'
 
-const App = () => <div></div>
+const App = () => <div>Hello</div>
 
-render()
+const appEl = document.createElement('div')
+document.body.append(appEl)
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  appEl
+)

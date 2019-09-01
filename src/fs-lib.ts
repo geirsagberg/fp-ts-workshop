@@ -2,29 +2,32 @@
 
 // Map
 
-type MapFn = <TIn, TOut>(input: TIn[], fn: (t: TIn) => TOut) => TOut[]
-
-export const map: MapFn = <TIn, TOut>(input: TIn[], fn: (t: TIn) => TOut) => {
-  let output = []
+export function map<TIn, TOut>(input: TIn[], fn: (t: TIn) => TOut) {
+  let output: TOut[] = []
   for (let i = 0; i < input.length; i++) {
     output[i] = fn(input[i])
   }
   return output
 }
 
-const strings = map([1, 2, 3], x => x.toString())
-
 // Reduce
 
-type ReduceFn = <TIn, TOut>(input: TIn[], fn: (prev: TOut, curr: TIn) => TOut, seed: TOut) => TOut
-
-export const reduce: ReduceFn = <TIn, TOut>(input: TIn[], fn: (prev: TOut, curr: TIn) => TOut, seed: TOut) => {
+export function reduce<TIn, TOut>(input: TIn[], fn: (prev: TOut, curr: TIn) => TOut, seed: TOut) {
   for (let i = 0; i < input.length; i++) {
     seed = fn(seed, input[i])
   }
   return seed
 }
 
-// Curry
+// Compose
 
-// export const curry(fn, )
+export function compose<F, FG, G>(f: (x: F) => FG, g: (x: FG) => G) {
+  const composed = (x: F) => g(f(x))
+  return composed
+}
+
+// Identity
+
+export function identity<T>(x: T) {
+  return x
+}

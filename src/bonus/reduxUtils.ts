@@ -19,11 +19,11 @@ export function createAction<T extends string, P>(type: T, payload?: P) {
 
 export type ActionsUnion<A extends ActionCreatorsMapObject> = ReturnType<A[keyof A]>
 
-export function createReducer<State, Action extends ReduxAction>(
+export function createReducer<State, Action>(
   initialState: Immutable<State>,
   recipe: (state: State, action: Action) => void | State
 ) {
-  return produce(recipe, initialState) as Reducer<State, Action>
+  return produce(recipe, initialState)
 }
 
 export function bindThunkActionCreators<M extends ActionCreatorsMapObject>(map: M, dispatch: Dispatch) {
