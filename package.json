@@ -1,27 +1,39 @@
 {
   "name": "fp-ts-workshop",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "dependencies": {
     "fp-ts": "^2.0.5",
     "immer": "^3.2.0",
     "lodash-es": "^4.17.15",
-    "parcel": "^1.12.3",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "redux": "^4.0.4",
+    "redux-starter-kit": "^0.6.3",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
+    "chai": "^4.2.0",
+    "esm": "^3.2.25",
     "jest": "^24.9.0",
+    "mocha": "^6.2.0",
+    "parcel-bundler": "^1.12.3",
     "ts-jest": "^24.0.2",
     "tslint": "^5.19.0",
     "tslint-config-standard": "^8.0.1",
     "typescript": "^3.6.2"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest --watch"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Geir Sagberg",
+  "license": "MIT",
+  "jest": {
+    "transform": {
+      "\\.m?js$": "@std/esm"
+    },
+    "transformIgnorePatterns": []
+  }
 }

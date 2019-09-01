@@ -18,6 +18,13 @@ const strings = map([1, 2, 3], x => x.toString())
 
 type ReduceFn = <TIn, TOut>(input: TIn[], fn: (prev: TOut, curr: TIn) => TOut, seed: TOut) => TOut
 
+export const reduce: ReduceFn = <TIn, TOut>(input: TIn[], fn: (prev: TOut, curr: TIn) => TOut, seed: TOut) => {
+  for (let i = 0; i < input.length; i++) {
+    seed = fn(seed, input[i])
+  }
+  return seed
+}
+
 // Curry
 
 // export const curry(fn, )
