@@ -2,16 +2,6 @@
 
 // Type inference
 
-{
-  const llanowarElves = {
-    power: 1,
-    toughness: 1,
-    tap: () => 'greenMana'
-  }
-
-  llanowarElves.tap()
-}
-
 // Enums
 
 enum Mana {
@@ -22,12 +12,11 @@ enum Mana {
   Blue
 }
 
-{
-  const llanowarElves = {
-    power: 1,
-    toughness: 1,
-    tap: () => Mana.Green
-  }
+const llanowarElves: Tappable & Creature = {
+  power: 1,
+  toughness: 1,
+  tap: () => 'greenMana',
+  manaCost: [Mana.Green]
 }
 
 // Interfaces
@@ -41,23 +30,9 @@ interface Creature {
   toughness: number
 }
 
-{
-  // const llanowarElves: Tappable & Creature = {
-  //   power: 1,
-  //   toughness: 1,
-  //   tap: () => Mana.Green
-  // }
-}
-
 // Types
 
 type TappableCreature = Tappable & Creature
-
-// const avacynsPilgrim: TappableCreature = {
-//   power: 1,
-//   toughness: 1,
-//   tap: () => Mana.White
-// }
 
 // So what’s the difference between type alias and interface again 🤖?
 // 1. you cannot use implements on an class with type alias if you use union operator within your type definition
@@ -95,13 +70,11 @@ class LlanowarElves implements ManaTappable<Mana.Green> {
 
 const elf = new LlanowarElves()
 
-const mana = elf.tap()
+elf.tap()
 
 // InstanceType
 
 type LlanowarElvesType = InstanceType<typeof LlanowarElves>
-
-// const lolElf = new LlanowarElvesType()
 
 // Union Types
 
@@ -114,20 +87,14 @@ interface Enchantment extends Spell {
   ability: PassiveAbility | ActiveAbility
 }
 
-type Permanent = Creature | Enchantment
-
-const goblin: Permanent = {
-  power: 1,
+const e: Enchantment = {
   ability: () => '',
-  toughness: 1,
-  manaCost: [Mana.Red]
+  manaCost: [Mana.Green]
 }
 
 // keyof
 
 type CreatureAttribute = keyof Creature
-
-const attr: CreatureAttribute = 'power'
 
 // index signature
 
@@ -135,25 +102,19 @@ type AnyType = {
   [Prop: string]: any
 }
 
-{
-  const x: AnyType = {
-    d: 3,
-    [3]: 6
-  }
-}
-
 // Mapped type & never
 
-type Not<T> = { [P in keyof T]?: never }
+type Not<T> = {
+  [P in keyof T]?: never
+}
 
 type NotCreature = Not<Creature>
 
-const c: NotCreature = {}
-
 type AnythingButCreature = AnyType & NotCreature
 
-const island: AnythingButCreature = {
-  color: 'blue'
+const c: AnythingButCreature = {
+  lol: 3,
+  foo: 'm'
 }
 
 // Exclude<T,U>
@@ -162,32 +123,15 @@ type EnchantmentAttribute = keyof Enchantment
 
 type AttributesInEnchantmentButNotInCreature = Exclude<EnchantmentAttribute, CreatureAttribute>
 
-const enchantmentAttr: AttributesInEnchantmentButNotInCreature = 'ability'
-
 // Extract<T,U>
 
 type AttributesInEnchantmentAndInCreature = Extract<EnchantmentAttribute, CreatureAttribute>
 
 // Exclusive OR
 
-type CreatureXorEnchantment =
-  | Creature & { [P in AttributesInEnchantmentButNotInCreature]?: never }
-  | Enchantment & { [P in Exclude<keyof Creature, keyof Enchantment>]?: never }
-
-// const orc: CreatureXorEnchantment = {
-//   power: 2,
-//   toughness: 2,
-//   manaCost: [Mana.Red, Mana.Red],
-//   ability: () => ''
-// }
-
 // Pick<T, U>
 
 type CreaturePower = Pick<Creature, 'power'>
-
-const p: CreaturePower = {
-  power: 5
-}
 
 // Omit<T, U>
 
@@ -195,13 +139,13 @@ type CreatureWithoutManaCost = Omit<Creature, 'manaCost'>
 
 const centaurToken: CreatureWithoutManaCost = {
   power: 3,
-  toughness: 3
+  toughness: 4
 }
 
 // typeof
 
 const pacifism = {
-  type: 'enchantment',
+  type: 'enchantment' as const,
   manaCost: [Mana.White]
 }
 
@@ -214,10 +158,12 @@ type CardType = 'creature' | 'sorcery' | 'instant' | 'enchantment' | 'land'
 // ReturnType<T>
 
 function castCounterspell() {
-  const type: CardType = 'instant'
   return {
-    type,
-    manaCost: [Mana.Blue, Mana.Blue]
+    type: 'instant' as const,
+    manaCost: [Mana.Blue, Mana.Blue] as const,
+    wat: {
+      m: 32
+    } as const
   }
 }
 
@@ -237,12 +183,10 @@ type TypeOfCard<T> = T extends { type: 'land' }
   ? 'enchantment'
   : never
 
-type counterspellType = TypeOfCard<Counterspell>
+type CounterspellType = TypeOfCard<Counterspell>
 
 // infer
 
 type InferredTypeOfCard<T> = T extends { type: infer R } ? (R extends CardType ? R : never) : never
 
-type inferredCounterspellType = InferredTypeOfCard<Counterspell>
-
-// Advanced
+type InferredCounterspell = InferredTypeOfCard<Counterspell>
