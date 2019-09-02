@@ -33,6 +33,8 @@
   },
   "scripts": {
     "test": "mocha src/**/*.spec.ts --watch --require ts-node/register --require esm",
+    "test:fs-lib": "mocha src/fs-lib.spec.ts --watch --require ts-node/register --require esm",
+    "test:lodash": "mocha src/lodash-es.spec.ts --require ts-node/register --require esm",
     "bonus": "parcel src/bonus/index.html"
   },
   "author": "Geir Sagberg",

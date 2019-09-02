@@ -29,7 +29,17 @@ To explore the typings of these, Ctrl+Click `.map`, and you will see the content
 
 Do this part OR part 2b.
 
+- Open `fs-lib.ts` and `fs-lib.spec.ts`
+- `npm run test:fs-lib`
+- Implement till test works
+- Extend with your own favourite functional functions
+
 ## Part 2b - Write typings for Lodash
+
+- Open `lodash-es.d.ts` and `lodash-es.spec.ts`
+- `npm run test:lodash`
+- Write typings till they are as expected
+- Extend with your own favourite lodash functions
 
 ### Cheats:
 
