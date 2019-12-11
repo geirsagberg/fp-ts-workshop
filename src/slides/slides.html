@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Slides</title>
+  </head>
+  <body style="background: #262626;">
+    <style>
+      .remark-slide-scaler {
+        box-shadow: none;
+      }
+    </style>
+    <textarea id="source">
+
+class: front-page
+
+# Funksjonell TypeScript
+
+## &nbsp;
+
+Bekk Trondheim Miniseminar
+
+Geir Sagberg
+
+11.12.2019
+
+---
+
+# The Magic of TypeScript
+
+.middle.center[<img src="magic.png">]
+
+---
+
+# Lag ditt eget FP-bibliotek
+
+```
+// Make your own functional library
+
+// Map
+export function map&lt;TIn, TOut>(input: TIn[], fn: (t: TIn) => TOut) {}
+
+// Reduce
+export function reduce&lt;TIn, TOut>(input: TIn[], fn: (prev: TOut, curr: TIn)
+  => TOut, seed: TOut) {}
+
+// Compose
+export function compose&lt;F, FG, G>(f: (x: F) => FG, g: (x: FG) => G) {}
+
+// Identity
+export function identity&lt;T>(x: T) {}
+```
+
+---
+
+# Lag ditt eget FP-bibliotek
+
+```
+// Map
+export function map&lt;TIn, TOut>(input: TIn[], fn: (t: TIn) => TOut) {
+  let output: TOut[] = []
+  for (let i = 0; i &lt; input.length; i++) {
+    output[i] = fn(input[i])
+  }
+  return output
+}
+
+// Reduce
+export function reduce&lt;TIn, TOut>(input: TIn[], fn: (prev: TOut, curr: TIn)
+  => TOut, seed: TOut) {
+  for (let i = 0; i &lt; input.length; i++) {
+    seed = fn(seed, input[i])
+  }
+  return seed
+}
+```
+
+---
+
+# Lag ditt eget FP-bibliotek
+
+```
+// Compose
+export function compose&lt;F, FG, G>(f: (x: F) => FG, g: (x: FG) => G) {
+  const composed = (x: F) => g(f(x))
+  return composed
+}
+
+// Identity
+export function identity&lt;T>(x: T) {
+  return x
+}
+
+```
+
+---
+
+# Lag typings for Lodash
+
+```
+declare module 'lodash-es' {
+  export function map(input: any, mapFn: any): any
+
+  export function reduce(input: any, reduceFn: any, seed: any): any
+
+  export function pick(input: any, props: any): any
+
+  export function some(collection: any, predicate: any): any
+
+  // Add your own favourite lodash functions here
+}
+```
+
+---
+
+# Lag typings for Lodash
+
+```
+declare module 'lodash-es' {
+  export function map&lt;T, U>(input: Array&lt;T>, mapFn: (item: T) => U): Array&lt;U>
+
+  export function reduce&lt;T, U>(input: Array&lt;T>, reduceFn: (prev: U, curr: T) => U, seed: U): U
+
+  export function pick&lt;T, U extends keyof T>(input: T, props: U): Pick&lt;T, U>
+
+  export function some&lt;T>(collection: Array&lt;T>, predicate: (x: T) => boolean): boolean
+}
+```
+
+---
+
+class: center middle bekk-top
+
+# Prøv selv!
+https://github.com/geirsagberg/fp-ts-workshop
+
+    </textarea>
+    <script src="index.ts"></script>
+    <script type="text/javascript">
+      const slideshow = remark.create({
+        ratio: '16:9',
+        highlightStyle: 'monokai',
+        highlightLanguage: 'typescript'
+      })
+    </script>
+  </body>
+</html>

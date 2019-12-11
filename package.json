@@ -10,7 +10,8 @@
     "react-redux": "^7.1.1",
     "redux": "^4.0.4",
     "redux-starter-kit": "^0.6.3",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "remark-bekk": "github:bekk/remark"
   },
   "devDependencies": {
     "@types/chai": "^4.2.0",
@@ -24,7 +25,9 @@
     "expect": "^24.9.0",
     "jest": "^24.9.0",
     "mocha": "^6.2.0",
-    "parcel-bundler": "^1.12.3",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^1.19.1",
+    "prettier-tslint": "^0.4.2",
     "ts-jest": "^24.0.2",
     "ts-mocha": "^6.0.0",
     "tslint": "^5.19.0",
@@ -33,7 +36,8 @@
   },
   "scripts": {
     "test": "mocha src/**/*.spec.ts --watch --require ts-node/register --require esm",
-    "bonus": "parcel src/bonus/index.html"
+    "bonus": "parcel src/bonus/index.html",
+    "slides": "parcel src/slides/slides.html"
   },
   "author": "Geir Sagberg",
   "license": "MIT",
